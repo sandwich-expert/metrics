@@ -101,14 +101,13 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <!-- AWS keys will be read from settings.xml -->
+            <id>sandwich-maven</id>
+            <url>s3://sandwich-maven/snapshot</url>
         </snapshotRepository>
         <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Nexus Release Repository</name>
-            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>sandwich-maven</id>
+            <url>s3://sandwich-maven/release</url>
         </repository>
     </distributionManagement>
 
@@ -243,6 +242,14 @@
     </profiles>
 
     <build>
+        <!-- maven support for s3 -->
+        <extensions>
+            <extension>
+                <groupId>org.kuali.maven.wagons</groupId>
+                <artifactId>maven-s3-wagon</artifactId>
+                <version>1.2.1</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.felix</groupId>
